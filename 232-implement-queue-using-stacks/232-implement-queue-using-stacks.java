@@ -1,31 +1,38 @@
 class MyQueue {
-   Stack<Integer>one=new Stack<>();
-    Stack<Integer>two=new Stack<>();
+   Stack<Integer>input=new Stack<>();
+   Stack<Integer>output=new Stack<>();
     public MyQueue() {
         
     }
     
     public void push(int x) {
-        while(one.size()>0){
-            two.push(one.pop()); /// FIRST TRANSFERING ALL ELEMENT IN TWO
-        }
-        two.push(x);          
-        while(two.size()>0){
-            one.push(two.pop()); // transfer again to make element as last inserted element 
-        }
-    
+        input.push(x);
     }
     
     public int pop() {
-      return one.pop();    
+       if(output.size()>0){
+           return output.pop();
+       }else{
+           while(input.size()>0){
+               output.push(input.pop());
+           }
+           return output.pop();           
+       }    
     }
     
     public int peek() {
-     return one.peek();    
+      if(output.size()>0){
+           return output.peek();
+       }else{
+           while(input.size()>0){
+               output.push(input.pop());
+           }
+           return output.peek();           
+       }        
     }
     
     public boolean empty() {
-      return one.size()==0;    
+      return input.size()==0 && output.size()==0;    
     }
 }
 
