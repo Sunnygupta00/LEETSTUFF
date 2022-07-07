@@ -1,18 +1,14 @@
 class MyStack {
   Queue<Integer> q1 =new ArrayDeque<>();
-      Queue<Integer> q2 =new ArrayDeque<>();
     public MyStack() {
         
     }
     
     public void push(int x) {
-      q2.offer(x);
-        while(q1.size()>0){
-            q2.offer(q1.poll()); // TAKIN X PEEK BAN JAYE
-        }
-        while(q2.size()>0){
-            q1.offer(q2.poll()); 
-        }
+      q1.offer(x);
+      for(int i=0;i<q1.size()-1;i++){
+          q1.offer(q1.poll());           // removing all element after x such that mera x peek ban jaye;
+      }
         
     }
     
