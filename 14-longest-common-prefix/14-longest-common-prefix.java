@@ -1,12 +1,21 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
-        String s=strs[0];
-        for(int i=1;i<strs.length;i++){
-            while(strs[i].indexOf(s)!=0){
-                s=s.substring(0,s.length()-1);
-            }
+        if (strs == null || strs.length == 0)
+            return "";
+        
+        // ["aaa","aa","aaa"] for this test case their is need for sorting
+         Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length - 1];
+        int c = 0;
+        while(c < first.length()&& c<last.length())
+        {
+            if (first.charAt(c) == last.charAt(c))
+                c++;
+            else
+                break;
         }
-        return s;
+        return c == 0 ? "" : first.substring(0, c);
         
     }
 }
