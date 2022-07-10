@@ -22,3 +22,10 @@ class Solution {
         return ans.toString();
     }
 }
+/*
+I LIKE THIS TRICK INCREASE COUNTER TILL N-1 AND THEN DECREASE WHAT IS ESPECIAL?
+EX i=0 , d=1;
+   i+=d;
+   if(i==n-1 || i==0)d=-d;
+   this way we can easily do zigzagtraversal
+*/
