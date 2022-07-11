@@ -25,19 +25,15 @@ class Solution {
     int lps(String s) {
         char arr[]=s.toCharArray();
         int []lps=new int[s.length()];
-        int i=1;
-        int max=Integer.MIN_VALUE;
-        while(i<arr.length){
-            int j=lps[i-1];
-            while(j>0 && arr[i]!=arr[j]){
-                j=lps[j-1];
-            }
+        int j=0;
+        for(int i=1;i<arr.length;i++){
             if(arr[i]==arr[j]){
-                j++;
+                lps[i]=++j;
+            }else if(j>0){
+                j=lps[j-1];
+                i--;
             }
-            max=Math.max(max,j);
-            lps[i++]=j;
         }
-        return lps[arr.length-1];
+        return j;
     }
 }
