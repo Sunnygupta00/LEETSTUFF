@@ -36,41 +36,51 @@ class GFG
 class Solution
 {
     
-    ArrayList<Integer> search(String pat, String txt)
+    ArrayList<Integer> search(String p, String t)
     {
-        // your code here
         ArrayList<Integer>ans=new ArrayList<>();
-        int n=txt.length();
-        int m=pat.length();
+        int n=t.length();
+        int m=p.length();
+        char [] pat=p.toCharArray();
+        char [] txt = t.toCharArray();
         int lps[]=new int[m];
-        for(int i=1;i<m;i++){
-            int j=lps[i-1];
-            while(j>0 && pat.charAt(j)!=pat.charAt(i)){
-                j=lps[j-1];
+        // CALCULATING LPS --> LONGEST COMMON PREFIX SUFFIX FOR PATTERN
+        int j=0;int i=1;
+        while(i<m){
+            if(pat[i]==pat[j]){
+                lps[i]=++j;
+                i++;
+            }else{
+                   if(j>0){
+                       j=lps[j-1];// we are sending j behind that value which is prefix suffix of that char
+                   }else{
+                       lps[i]=j;// default 0 rahega j
+                       i++;
+                   }
             }
-            if(pat.charAt(j)==pat.charAt(i)){
-                j++;
-            }
-            lps[i]=j;
         }
-        int i=0,j=0;
+        //for(int k: lps)System.out.print(k+" ");
+        j=0;i=0; //NOW ITS TIME TO ITERATE ON BOTH THE STRING i on txt and j on pat
         while(i<n){
-            if(txt.charAt(i)==pat.charAt(j)){
+            // STEP 1: IF PATTERN MATCH
+            if(txt[i]==pat[j]){
                 i++;
                 j++;
-            }else{ // IF NOT MATCHING
-                 
-                if(j>0){
-                     j=lps[j-1];
-                }else{
-                    i++;
-                }
+            }else{  // STEP 2 : IF NOT MATCH
+                  
+                   if(j>0){// STEP 3 : IF J IS GREATER THAN MEANS THERE IS SOME PREFIX AVAILABLE, SO ITERATE BEHIND
+                       j=lps[j-1];
+                   }else{     // STEP 4 : ELSE MOVE AHEAD 
+                       i++;
+                   }
             }
-            if(j==m){
+            if(j==m)  // STEP 5 ; IF WE HAVE J==M MEANS WE GOT THE PATTERN
+            {
                 ans.add(i-m+1);
-                j=lps[j-1];
+                j=lps[j-1]; // moving j behind 
             }
         }
+
         return ans;
     }
     
