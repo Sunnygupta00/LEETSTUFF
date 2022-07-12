@@ -1,45 +1,40 @@
 class Solution {
     public int strStr(String txt, String pat) {
-        return kmpAlgo(txt.toCharArray(),pat.toCharArray());
-     
+        if(txt.length()<pat.length())return -1;
+        return rabinAlgo(txt.toCharArray(),pat.toCharArray());
     }
-    public int kmpAlgo(char [] txt, char []pat ){
-        int m=pat.length;
+    public int rabinAlgo(char txt[], char pat[]){
         int n=txt.length;
-        int lps[] =new int[m];
-        int i=1,j=0;
-        while(i<m){
-            // if found prefix suffix
-            if(pat[i]==pat[j]){
-                lps[i]=++j;
-                i++;
-            }else{
-                if(j>0){
-                    j=lps[j-1];
-                }else{
-                    i++;
-                }
-            }
+        int m=pat.length;
+        int patHash=0,txtHash=0;
+        int prime=101;
+        int pow=1;
+        int totalChar=256;
+        for(int i=0;i<m-1;i++)pow=(pow*totalChar)%prime;
+        // hash for txt and pattern;
+        for(int i=0;i<m;i++){
+            patHash= (totalChar*patHash + pat[i])%prime;
+            txtHash = (totalChar* txtHash+ txt[i])%prime;
         }
-        // now searching on txt;
-        i=j=0;
-        while(i<n){
-            // if found
-            if(pat[j]==txt[i]){
-                i++;
-                j++;
-            }else{
-                if(j>0){
-                    j=lps[j-1];
-                }else{
-                    i++;
+        for(int i=0;i<=n-m;i++){
+            if(patHash==txtHash){
+                boolean check=true;
+                for(int j=0;j<m;j++){
+                    if(pat[j]!=txt[i+j]){
+                        check=false;
+                        break;
+                    }
                 }
+                if(check)return i;
             }
-            // if found 
-            if(j==m){
-                return i-m;
+            if(i<n-m){
+                txtHash= (totalChar*(txtHash-pow*txt[i])+txt[i+m])%prime;
+                if(txtHash<0){
+                    txtHash+=prime;
+                }
             }
         }
         return -1;
     }
+    
 }
