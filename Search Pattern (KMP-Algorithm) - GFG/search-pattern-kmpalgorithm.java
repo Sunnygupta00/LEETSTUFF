@@ -36,63 +36,42 @@ class GFG
 class Solution
 {
     
-    
     ArrayList<Integer> search(String pat, String txt)
     {
         // your code here
-        ArrayList<Integer> answer = new ArrayList<Integer>();
-        int M = pat.length();
-        int N = txt.length();
-        int lps[] = new int[M + N + 1];
-        String dolpsonstring = concat(pat, txt);
-        computeLPSArray(dolpsonstring, M + N + 1,lps);
-        for(int i = 0 ; i < M + N + 1 ; i++){
-            if(lps[i] == pat.length()){
-                answer.add((i + 1) - 2*pat.length());
+        ArrayList<Integer>ans=new ArrayList<>();
+        int n=txt.length();
+        int m=pat.length();
+        int lps[]=new int[m];
+        for(int i=1;i<m;i++){
+            int j=lps[i-1];
+            while(j>0 && pat.charAt(j)!=pat.charAt(i)){
+                j=lps[j-1];
             }
+            if(pat.charAt(j)==pat.charAt(i)){
+                j++;
+            }
+            lps[i]=j;
         }
-        return answer;
-        
-    }
-    
-    public static String concat(String s1, String s2) {
-        String s3= s1 + "#";
-        String s4= s3+ s2;
-        return s4;
-    }
-    
-    void computeLPSArray(String pat, int M, int lps[])
-    {
-        // length of the previous longest prefix suffix
-        int len = 0;
-        int i = 1;
-        lps[0] = 0; // lps[0] is always 0
-
-        // the loop calculates lps[i] for i = 1 to M-1
-        while (i < M) {
-            if (pat.charAt(i) == pat.charAt(len)) {
-                len++;
-                lps[i] = len;
+        int i=0,j=0;
+        while(i<n){
+            if(txt.charAt(i)==pat.charAt(j)){
                 i++;
-            }
-            else // (pat[i] != pat[len])
-            {
-                // This is tricky. Consider the example.
-                // AAACAAAA and i = 7. The idea is similar
-                // to search step.
-                if (len>0) {
-                    len = lps[len - 1];
-
-                    // Also, note that we do not increment
-                    // i here
-                }
-                else // if (len == 0)
-                {
-                    lps[i] = 0;
+                j++;
+            }else{ // IF NOT MATCHING
+                 
+                if(j>0){
+                     j=lps[j-1];
+                }else{
                     i++;
                 }
             }
+            if(j==m){
+                ans.add(i-m+1);
+                j=lps[j-1];
+            }
         }
+        return ans;
     }
     
 }
