@@ -3,22 +3,27 @@ class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer>res=new ArrayList<>();
         if(root==null)return res;
-        Stack<TreeNode>one=new Stack<>();
-        Stack<TreeNode>two=new Stack<>();
-        one.add(root);
-        while(one.size()!=0){
-            TreeNode temp=one.pop();
-            two.add(temp);
-            if(temp.left!=null){
-                one.push(temp.left);
-            }if(temp.right!=null){
-                one.push(temp.right);
+        Stack<TreeNode>stack=new Stack<>();
+        while(root!=null || stack.size()>0){
+            if(root!=null){
+                stack.add(root);
+                root=root.left;
+            }else{
+                TreeNode temp=stack.peek().right;
+                if(temp==null){
+                    temp=stack.pop();
+                    res.add(temp.val);
+                    while(stack.size()>0 && temp==stack.peek().right){
+                        temp=stack.pop();
+                        res.add(temp.val);
+                    }
+                }else{
+                    root=temp;   // add all its left element
+                }
             }
         }
-        while(two.size()!=0){
-            res.add(two.pop().val);
-        }
         return res;
+        
     }
   
 }
