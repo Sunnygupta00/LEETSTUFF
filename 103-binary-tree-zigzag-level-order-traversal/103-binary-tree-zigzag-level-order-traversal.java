@@ -1,7 +1,7 @@
 
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>>ans=new ArrayList<>();
+        List<List<Integer>>ans=new LinkedList<>();
         if(root==null) return ans;
        Queue<TreeNode>q=new LinkedList<>();
         boolean flag=false;
