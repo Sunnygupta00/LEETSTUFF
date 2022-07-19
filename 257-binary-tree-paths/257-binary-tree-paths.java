@@ -9,7 +9,8 @@ class Solution {
         if(root.right==null && root.left == null){
             ans.add(temp+root.val);
             return;
-        }if(root.left!=null) rec(root.left, temp+root.val+"->", ans);
+        }
           if(root.right!=null) rec(root.right, temp+root.val+"->", ans);
+        if(root.left!=null) rec(root.left, temp+root.val+"->", ans);
     }
 }
