@@ -1,23 +1,23 @@
+
 class Solution {
-    public TreeNode buildTree(int[] inorder, int[] postorder) {
-        if(inorder.length != postorder.length)return null;
-        int length = inorder.length-1;
-        return build(inorder, 0, length, postorder, 0, length);
+    public TreeNode buildTree(int[] in, int[] post) {
+        if(in.length != post.length )return null;
+        int length = in.length-1;
+        return build(in, 0, length, post, 0, length);
     }
-    public TreeNode build(int in[],int inStart, int inEnd, int post[], int posStart, int posEnd){
-        if(inStart>inEnd )return null;
-        TreeNode root = new TreeNode(post[posEnd]); // create root
+    public TreeNode build(int []in, int inStart, int inEnd, int post[], int postStart, int postEnd){
+        if(inStart>inEnd)return null;
+        TreeNode root = new TreeNode (post[postEnd]);
         int index = inStart;
-        for(; index<=inEnd; index++){
-            if(root.val == in[index]){
+        for(; index<= inEnd; index++){
+            if(in[index] == root.val){
                 break;
             }
         }
-        int leftTree = index-inStart;
-        int rightTree = inEnd-index;
-        root.left = build(in, inStart, index-1, post, posStart, posStart+leftTree-1);
-        root.right = build(in, index+1, inEnd, post, posEnd-rightTree, posEnd-1);
-        
+        int leftSize = index-inStart;
+        int rightSize = inEnd-index;
+        root.left = build (in, inStart, index-1, post, postStart, postStart+leftSize-1);
+        root.right = build (in, index+1, inEnd, post, postStart+leftSize, postEnd-1);
         return root;
     }
 }
