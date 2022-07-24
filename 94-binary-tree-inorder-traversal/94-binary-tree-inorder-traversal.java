@@ -2,18 +2,27 @@
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
        List<Integer>ans=new ArrayList<>();   
-        ArrayDeque<TreeNode> stack = new ArrayDeque<>();
-        while(root!=null || stack.size()>0){
-            if(root!=null){
-                stack.push(root);
-                root=root.left;
+       TreeNode curr = root;
+        while(curr!=null){
+            if(curr.left==null){
+                ans.add(curr.val);
+                curr = curr.right;
             }else{
-                TreeNode temp= stack.pop();
-                ans.add(temp.val);
-                root=temp.right;
+                TreeNode prev = curr.left;
+                while(prev.right != null && prev.right != curr){
+                    prev = prev.right;
+                }
+                if(prev.right == null){ // make connection
+                    prev.right = curr;
+                    curr = curr.left; // go to left and make another connection
+                    
+                }else{
+                    prev.right = null;
+                    ans.add(curr.val);
+                    curr = curr.right;
+                }
             }
         }
-        return ans;
-        
+     return ans;   
     }
 }
