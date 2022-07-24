@@ -1,20 +1,20 @@
 
 class Solution {
-   
+   // USING MORRIS TRAVERSAL
     public void flatten(TreeNode root) {
         if(root == null)return;
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-        while(stack.size()>0){
-            TreeNode temp = stack.pop();
-            if(temp.right != null){
-                stack.push(temp.right);
+        TreeNode curr = root;
+        while(curr != null){
+            if(curr.left != null){
+              TreeNode prev = curr.left;
+                while(prev.right != null){
+                    prev = prev.right;
+                }
+                prev.right = curr.right; // CREATING NEW LINK
+                curr.right = curr.left; 
+                curr.left =null;         // BREAKING THE LINK
             }
-            if(temp.left != null){
-                stack.push(temp.left);
-            }
-            if(stack.size()>0) temp.right = stack.peek();
-            temp.left = null;
+            curr = curr.right;
         }
     }
 }
