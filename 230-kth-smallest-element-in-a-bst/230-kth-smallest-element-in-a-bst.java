@@ -1,18 +1,20 @@
+
 class Solution {
-    public int kthSmallest(TreeNode p, int k) {
-      Stack<TreeNode> stack = new Stack<>();
-        TreeNode curr = p;
-        while(stack.size()>0 || curr!=null){
-            if(curr != null){
-                stack.push(curr);
-                curr= curr.left;
-            }else{
-                k--;
-                TreeNode temp = stack.pop();
-                if(k==0)return temp.val;
-                 curr = temp.right;
-            }
+    int ans;
+    public int kthSmallest(TreeNode root, int k) {
+        int K[] = new int [1];
+        K[0]= k;
+        rec(root, K);
+        return ans;
+    }
+    public void rec(TreeNode root, int k[]){
+        if(root == null)return ;
+        rec(root.left,k);
+        k[0]--;
+        if(k[0] == 0){
+            ans = root.val;
+            return;
         }
-        return -1;
-}
+        rec(root.right,k);
+    }
 }
