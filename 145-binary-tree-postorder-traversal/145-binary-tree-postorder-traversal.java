@@ -1,28 +1,29 @@
 
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
-        Deque<TreeNode> stack = new ArrayDeque<>();
-        List<Integer> ans = new ArrayList<>();
-        TreeNode curr=root;
-        while(curr!=null || stack.size()>0){
+        List<Integer>ans = new ArrayList<>();
+        if(root == null)return ans;
+       Stack<TreeNode>stack = new Stack<>();
+        TreeNode curr = root;
+        while(stack.size()>0 || curr!=null){
             if(curr!=null){
                 stack.push(curr);
-                curr = curr.left;                      //1. LEFT
+                curr= curr.left;
             }else{
                 TreeNode temp = stack.peek().right;
-                if(temp==null){
+                if(temp != null){
+                    curr = temp;
+                }else{
                     temp = stack.pop();
-                    ans.add(temp.val);                        // ROOT
-                    while(stack.size()>0 && temp==stack.peek().right){
+                    ans.add(temp.val);
+                    while(stack.size()>0 && stack.peek().right == temp){
                         temp = stack.pop();
                         ans.add(temp.val);
                     }
-                }else{// discover right side
-                    curr=temp;                        // 2. THEN RIGHT
                 }
+                
             }
         }
         return ans;
-        
     }
 }
