@@ -15,25 +15,18 @@ class Solution {
             adj.get(c[0]).add(c[1]);
             adj.get(c[1]).add(c[0]);
             if(dfs(adj, vis, c[0], -1)){
-                return c;
+                return c; // hence this is our extra edge
             }
         }
         return ans;
     }
     public boolean dfs(List<List<Integer>> adj, boolean vis[],int source, int parent){
+        if(vis[source]== true)return true;
         vis[source] = true;
         for(int i: adj.get(source)){
-            if(vis[i] == false){
-                if(dfs(adj, vis, i, source)){
-                    return true;
-                }
-            }else{
-                if(parent != i){
-                    a = parent;
-                    b= i;
-                    return true;
-                }
-            }
+          if(parent != i && dfs(adj, vis, i, source)){
+              return true;
+          }
         }
         
      return false;
