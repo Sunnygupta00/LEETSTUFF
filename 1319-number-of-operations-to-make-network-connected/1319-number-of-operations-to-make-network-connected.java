@@ -13,19 +13,23 @@ class Solution {
         int count = 0;
        for(int i =0; i<n; i++){
            if(vis[i] == false){
-               dfs(adj, vis, i);
+               bfs(adj, vis, i);
               count++;
            }
        }
         return count-1;
     }
-    public void dfs(List<Integer>adj[], boolean []vis, int source){
-        if(vis[source] == true){
-            return ;
-        }
-        vis[source] = true;
-        for( int u : adj[source]){
-            dfs(adj, vis, u);
+    public void bfs(List<Integer>adj[], boolean []vis, int source){
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(source);
+        while(q.size()>0){
+            int curr = q.poll();
+            for(int i : adj[curr]){
+                if(vis[i] == false){
+                    q.offer(i);
+                    vis[i] = true;
+                }
+            }
         }
     }
 }
