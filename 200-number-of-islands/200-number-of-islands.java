@@ -14,15 +14,19 @@ class Solution {
         }
         return count;
     }
+    int dir[][]= {{-1,0},{0,-1},{1,0},{0,1}};
     public void dfs(char [][]adj, boolean vis[][], int i, int j){
         if(i<0 || j<0 || i>=adj.length || j>=adj[0].length || adj[i][j] == '0' || vis[i][j] == true){
             return;
         }
         vis[i][j] = true;
-        dfs(adj, vis, i-1, j);
-        dfs(adj, vis, i, j+1);
-        dfs(adj, vis, i+1, j);
-        dfs(adj, vis, i, j-1);
+        for(int d[] : dir){
+            dfs(adj, vis, i+d[0], j+d[1]);
+        }
+      //  dfs(adj, vis, i-1, j);
+       // dfs(adj, vis, i, j+1);
+        //dfs(adj, vis, i+1, j);
+        //dfs(adj, vis, i, j-1);
     }
     
 }
