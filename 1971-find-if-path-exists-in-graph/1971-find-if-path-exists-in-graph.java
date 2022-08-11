@@ -16,7 +16,7 @@ class Solution {
         return ans;
     }
     public void dfs( List<List<Integer>>adj, boolean vis[], int source, int destination ){
-        if(vis[source]== true){
+        if(vis[source]== true || ans == true){
             return;
         }
         if(source == destination){
