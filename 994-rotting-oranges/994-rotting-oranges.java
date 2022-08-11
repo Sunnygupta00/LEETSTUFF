@@ -20,13 +20,19 @@ class Solution {
         int n = grid.length;
         int m = grid[0].length;
         Queue<Pair> q = new LinkedList<>();
+        int totalOranges = 0;;
+    // TAKING ALL ROTTEN ORANGES  
         for(int i =0; i<n;i++){
             for(int j=0; j<m;j++){
                 if(grid[i][j] == 2){ // IF ROTTEN
                    q.offer(new Pair(i,j));                    
+                }else if(grid[i][j] == 1){
+                    totalOranges++;
                 }
             }
         }
+        if(totalOranges == 0)return 0;
+        // NOW WITH THE HELP OF ROTTEN ORANGES TRAVERSING IN ALL DIRECTIONS
         int time = 0;
         while(q.size()>0){
            int size = q.size();
@@ -41,23 +47,20 @@ class Solution {
                if(isValid(grid, n, m, row, col)){
                    grid[row][col] = 2;
                    q.offer(new Pair(row, col));
+                   totalOranges--;
                }
            }
             }
         }
-         
-        // CHECK FOR REMAINING FRUIT
-        boolean empty = true;
-        for(int []row : grid){
+      /*   for(int []row : grid){
             for(int col: row){
-                if(col == 1){
-                    return -1;
-                }if(col !=0){
-                    empty = false;
-                }
+               System.out.print(col+" ");           // DEBUG
             }
+             System.out.println();
         }
-        return empty ? 0 : time-1;
+        */
+ 
+        return totalOranges == 0 ? time-1 : -1;
     }
     public boolean isValid(int grid[][], int n, int m, int i, int j){
         if(i<0 || i>=n || j<0 || j>=m || grid[i][j] !=1){
