@@ -45,12 +45,7 @@ class Solution {
            }
             }
         }
-         for(int []row : grid){
-            for(int col: row){
-               System.out.print(col+" ");
-            }
-             System.out.println();
-        }
+         
         // CHECK FOR REMAINING FRUIT
         boolean empty = true;
         for(int []row : grid){
