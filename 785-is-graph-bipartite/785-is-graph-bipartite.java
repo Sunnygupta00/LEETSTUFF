@@ -5,33 +5,25 @@ class Solution {
         Arrays.fill(color, -1);
        for(int i =0;i<n;i++){
            if(color[i]==-1){
-               if(bfs(graph, i, color) == false){
+               if(dfs(graph, i ,1, color) == false){
                    return false;
                }
            }
        }  
+       
         return true;
         
     }
-    public boolean bfs(int[][] graph, int node, int color[]){
-         Queue<Integer> q = new LinkedList<>();
-        q.offer(node);
-        color[node]=0;
-        while(q.size()>0){
-            int index = q.poll();
-            //System.out.println(index+" "+col);
-            for(int  i: graph[index]){
-               // System.out.println(i);
-                if(color[i]==-1){
-                    color[i]= color[index] == 0 ? 1 : 0;
-                    q.offer(i);
-                }else{
-                    if(color[i] == color[index]){
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
+   public boolean dfs(int [][]graph, int node, int col ,int color[]){
+       if(color[node] != -1){
+           return color[node] == col;
+       }
+       color[node] = col;
+       for(int i: graph[node]){
+           if(dfs(graph, i, 1-color[node], color) == false){
+               return false;
+           }
+       }
+       return true;
+   }
 }
