@@ -5,23 +5,31 @@ class Solution {
         Arrays.fill(color, -1);
        for(int i =0;i<n;i++){
            if(color[i]==-1){
-               if(dfs(graph, i ,1, color) == false){
+               if(dfs(graph, i , color) == false){
                    return false;
                }
            }
        }  
-       
+        for(int i: color){
+            System.out.print(i+" ");
+        }
         return true;
         
     }
-   public boolean dfs(int [][]graph, int node, int col ,int color[]){
-       if(color[node] != -1){
-           return color[node] == col;
+   public boolean dfs(int [][]graph, int node, int color[]){
+       if(color[node] == -1){
+           color[node] =1;
        }
-       color[node] = col;
        for(int i: graph[node]){
-           if(dfs(graph, i, 1-color[node], color) == false){
-               return false;
+           if(color[i] == -1){
+               color[i] = 1-color[node];
+               if(dfs(graph, i, color) == false){
+                   return false;
+               }
+           }else{
+               if(color[i] == color[node]){
+                   return false;
+               }
            }
        }
        return true;
