@@ -14,19 +14,17 @@ class Solution {
         
     }
     public boolean bfs(int[][] graph, int node, int color[]){
-         Queue<Pair> q = new LinkedList<>();
-        q.offer(new Pair(node,0));
+         Queue<Integer> q = new LinkedList<>();
+        q.offer(node);
         color[node]=0;
         while(q.size()>0){
-             Pair curr = q.poll();
-            int index = curr.i;
-            int col = curr.color;
+            int index = q.poll();
             //System.out.println(index+" "+col);
             for(int  i: graph[index]){
                // System.out.println(i);
                 if(color[i]==-1){
-                    color[i]= col == 0 ? 1 : 0;
-                    q.offer(new Pair(i,color[i]));
+                    color[i]= color[index] == 0 ? 1 : 0;
+                    q.offer(i);
                 }else{
                     if(color[i] == color[index]){
                         return false;
@@ -35,13 +33,5 @@ class Solution {
             }
         }
         return true;
-    }
-}
-class Pair{
-    int i;
-    int color;
-    Pair(int x,int y){
-        i=x;
-        color=y;
     }
 }
