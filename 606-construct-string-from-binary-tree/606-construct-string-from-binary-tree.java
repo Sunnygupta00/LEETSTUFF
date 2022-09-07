@@ -14,22 +14,14 @@
  * }
  */
 class Solution {
-    private String ans =""; 
     public String tree2str(TreeNode root) {
-        if(root ==null)return "";
-         
-        return rec(root, new StringBuilder());
-       
-    }
-    public String rec(TreeNode root, StringBuilder sb){
         if(root == null)return "";
         String val = root.val+"";
-        String left = rec(root.left, sb);
-        String right = rec(root.right,sb);
+        String left = tree2str(root.left);
+        String right = tree2str(root.right);
         if(left == "" && right == "")return val;
         if(left == "" && right != "")return val+"()("+right+")";
         if(left != "" && right == "")return val+"("+left+")";
-        return val+"("+left+")"+"("+right+")";
-         
+        return val+"("+left+")("+right+")";
     }
 }
