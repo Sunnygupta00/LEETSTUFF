@@ -29,6 +29,7 @@ class Solution {
         }
         for(String i : hm.keySet()){
             
+           // System.out.println(i);
             if(hm.get(i).size()>=2){
                 ans.add(new ArrayList<>(hm.get(i)));
             }
