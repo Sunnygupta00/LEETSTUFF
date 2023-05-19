@@ -39,14 +39,12 @@ class Solution {
        }
       int i = j+1;
       while(i<n && j<n){
-          while(i<n && arr[i] ==0){
-              i++;
-          }
-          if(i<n && arr[i] != 0){
+          
+          if( arr[i] != 0){
               swap(arr, i, j);
               j++;
-              i++;
           }
+          i++;
       }
     }
 
