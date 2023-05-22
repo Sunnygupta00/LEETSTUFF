@@ -33,12 +33,24 @@ class Solution
 {
     static int majorityElement(int a[], int size)
     {
-        // your code here
-      HashMap<Integer, Integer> hm = new HashMap<>();
-      for(int i =0;i<size;i++){
-          hm.put(a[i], hm.getOrDefault(a[i],0)+1);
-          if(hm.get(a[i])>(size/2))return a[i];
-      }
-      return -1;
+        int el =0;
+        int count = 0;
+        for(int i: a){
+            if(count == 0){
+                count = 1;
+                el = i;
+            }else if(el == i){
+                count++;
+            }else{
+                count--;
+            }
+        }
+        count = 0;
+        for(int i: a){
+            if(i == el){
+                count++;
+            }
+        }
+        return count > size/2 ? el : -1;
     }
 }
