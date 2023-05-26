@@ -55,23 +55,21 @@ class Solution
 	         }
 	     }
 	     right--;
-	     if(top<=bottom){
+	     
 	         for(int i = right;i>=left;i--){
 	          k--;
 	         if(k == 0){
 	             return a[bottom][i];
 	         }
 	        }
-	     }
+	   
 	     bottom--;
-	     if(left<=right){
 	         for(int i=bottom;i>=top;i--){
 	              k--;
 	         if(k == 0){
 	             return a[i][left];
 	         }
 	         }
-	     }
 	     left++;
 	        
 	    }
