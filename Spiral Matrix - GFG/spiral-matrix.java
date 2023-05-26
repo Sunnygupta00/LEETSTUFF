@@ -37,35 +37,45 @@ class Solution
 	public int findK(int a[][], int n, int m, int k)
 	{
 	    // Your code goes here
-	    
 	    int left = 0, top= 0, right = m-1, bottom = n-1;
 	    while(left<=right && top<=bottom){
 	     
 	     // left to right
 	     for(int i = left;i<=right;i++){
-	         ans.add(a[top][i]);
+	         k--;
+	         if(k == 0){
+	             return a[top][i];
+	         }
 	     }
 	     top++;
 	     for(int i=top;i<=bottom;i++){
-	         ans.add(a[i][right]);
+	          k--;
+	         if(k == 0){
+	             return a[i][right];
+	         }
 	     }
 	     right--;
 	     if(top<=bottom){
 	         for(int i = right;i>=left;i--){
-	         ans.add(a[bottom][i]);
+	          k--;
+	         if(k == 0){
+	             return a[bottom][i];
+	         }
 	        }
 	     }
 	     bottom--;
 	     if(left<=right){
 	         for(int i=bottom;i>=top;i--){
-	             ans.add(a[i][left]);
+	              k--;
+	         if(k == 0){
+	             return a[i][left];
+	         }
 	         }
 	     }
 	     left++;
 	        
 	    }
-	   // System.out.println(ans);
-	    return ans.get(k-1);
+	    return 0;
 	}
 	
 }
