@@ -47,22 +47,36 @@ public class Main
 class Solution
 {
     //Function to merge the arrays.
-    public static void merge(long arr1[], long arr2[], int n, int m) 
-    {
-        // code here 
-        int i = n-1;
-        int j = 0;
-        while(i>=0 && j<m){
-            if(arr1[i] > arr2[j]){
-                long temp = arr1[i];
-                arr1[i] = arr2[j];
-                arr2[j] = temp;
-                i--;j++;
-            }else{
-                break;
+    public static void merge(long arr1[], long arr2[], int n, int m) {
+        int length = n+m;
+        int gap = length/2+(length%2);
+        while(gap !=0){
+            int left = 0;
+            int right = left+gap;
+            while(right<length){
+                
+                if(left<n && right>=n){
+                    swapIfNeed(arr1, arr2, left, right-n);
+                }else if(left >=n ){
+                    swapIfNeed(arr2, arr2, left-n, right-n);
+                }else {
+                    swapIfNeed(arr1, arr1,left, right);
+                }
+                left++;
+                right++;
             }
+            if(gap == 1)break;
+            
+            gap = (gap)/2 + gap%2;
         }
-        Arrays.sort(arr1);
-        Arrays.sort(arr2);
+        
+       
+    }
+    public static void swapIfNeed(long arr[], long arr2[], int i, int j){
+         if(arr[i]>arr2[j]){
+             long temp = arr[i];
+             arr[i] = arr2[j];
+             arr2[j] = temp;
+         }
     }
 }
