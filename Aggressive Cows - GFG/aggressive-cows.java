@@ -36,7 +36,7 @@ class Solution {
     public static int solve(int n, int k, int[] stalls) {
         Arrays.sort(stalls);
         int start =1 ;
-        int end = stalls[n-1]-stalls[0];
+        int end = (int)1e9;
         int res = -1;
         while(start<=end){
             int mid = start+(end-start)/2;
