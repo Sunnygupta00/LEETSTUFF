@@ -67,7 +67,9 @@ class Solution
         ArrayDeque<Integer>stack = new ArrayDeque<>();
         boolean vis[] = new boolean[V];
         for(int i=0; i<V;i++){
-            dfs(i, adj, vis, stack);
+            if(!vis[i]){
+                dfs(i, adj, vis, stack);
+            }
         }
         
         
@@ -77,10 +79,10 @@ class Solution
         return ans;
     }
     static void dfs(int source, ArrayList<ArrayList<Integer>>adj, boolean vis[], ArrayDeque<Integer>stack){
-        if(vis[source])return;
         vis[source] = true;
         for(int i: adj.get(source)){
-               dfs(i, adj, vis, stack);
+               if(!vis[i])dfs(i, adj, vis, stack);
+               
         }
         stack.push(source);
     }
