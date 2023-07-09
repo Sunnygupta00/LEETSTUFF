@@ -34,42 +34,44 @@ public class Main{
 // User function Template for Java
 
 class Solution{
+    private static int parent[];
+    private static int rank[];
 	static int spanningTree(int V, int E, int edges[][]){
-	    // created adj
-	    List<List<Pair>>adj = new ArrayList<>();
-	    for(int i=0;i<V;i++)adj.add(new ArrayList<>());
+	    
+	    // Code Here.
+	    Arrays.sort(edges, (a,b)->a[2]-b[2]);
+	    parent = new int[V];
+	    rank = new int[V];
+	    for(int i=0;i<V;i++)parent[i] = i;
+	    int weight = 0;
 	    for(int i[] : edges){
 	        int a = i[0];
 	        int b = i[1];
 	        int wt = i[2];
-	        adj.get(a).add(new Pair(b, wt));
-	        adj.get(b).add(new Pair(a,wt));
+	        if(union(a,b) == true){
+	            weight+=wt;
+	        }
 	    }
-	    PriorityQueue<Pair>q = new PriorityQueue<>((a,b)-> a.wt-b.wt);
-	       boolean vis[] = new boolean [V];
-	       q.offer(new Pair(0,0));
-	       int sum = 0;
-	       while(q.size()>0){
-	           Pair temp = q.poll();
-	           int node = temp.node;
-	           if(vis[node] == true) continue;
-	           // if this node is vis  no need to add 
-	           sum+= temp.wt;
-	           vis[node] = true;
-	           for(Pair i: adj.get(node)){
-	               if(!vis[i.node]){
-	                   q.offer(new Pair(i.node, i.wt));
-	               }
-	           }
-	       }
-	       return sum;
+	    return weight;
+	    
+	}
+	public static int findPar(int x){
+	    if(x == parent[x])return x;
+	    return parent[x] = findPar(parent[x]);
+	}
+	public static boolean union(int x, int y){
+	    int xPar = findPar(x);
+	    int yPar = findPar(y);
+	    if(xPar == yPar)return false;
+	    if(rank[yPar]> rank[xPar]){
+	        parent[xPar] = yPar;
+	    }else if(rank[yPar]<rank[xPar]){
+	        parent[yPar] = xPar;
+	    }else{
+	        parent[yPar] = xPar;
+	        rank[xPar]++;
+	    }
+	    return true;
 	}
 	
-}
-class Pair{
-    int wt, node;
-    Pair(int x, int y){
-        node = x;
-        wt = y;
-    }
 }
