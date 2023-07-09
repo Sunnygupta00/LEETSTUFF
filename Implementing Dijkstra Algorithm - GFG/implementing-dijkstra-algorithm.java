@@ -61,34 +61,33 @@ class Solution
     //from the source vertex S.
     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int src)
     {
-        int n = adj.size();
-       PriorityQueue<Pair>pq = new PriorityQueue<>((a,b)->(a.weight-b.weight));
-       int dis[] = new int[n];
-       Arrays.fill(dis, (int)1e9);
-       dis[src] = 0;
-       pq.offer(new Pair(src, 0));
-       while(pq.size()>0){
-           Pair temp = pq.poll();
-           int node = temp.node;
-           for(ArrayList<Integer> j: adj.get(node)){
-               int childNode = j.get(0);
-               int childWgt = j.get(1);
-                if(dis[childNode]>dis[node]+childWgt){
-                 dis[childNode]=dis[node]+childWgt;
-                 pq.offer(new Pair(childNode, childWgt));
+        // Write your code here
+        int dis[] = new int[V];
+        Arrays.fill(dis, (int)1e9);
+        PriorityQueue<Pair>q = new PriorityQueue<>((a,b)->a.wt-b.wt);
+        q.offer(new Pair(src, 0));
+        dis[src] = 0;
+        while(q.size()>0){
+            Pair temp = q.poll();
+            int node = temp.node;
+            int wt = temp.wt;
+            for(ArrayList<Integer> i : adj.get(node)){
+                int currNode = i.get(0);
+                int currWt = i.get(1);
+                if(dis[currNode] > currWt+ dis[node]){
+                    dis[currNode] = currWt+ dis[node];
+                    q.offer(new Pair(currNode, currWt));
                 }
-           }
-       }
-       return dis;
-        
+            }
+        }
+        return dis;
     }
 }
 class Pair{
-    int node;
-    int weight;
+    int node, wt;
     Pair(int x, int y){
         node = x;
-        weight = y;
+        wt = y;
     }
 }
 
