@@ -50,11 +50,12 @@ class Solution {
             return ans;
         }
         int i = n;
-        do{
-           ans.add(0,i);
-           i = parent[i];
-        }while(i!=parent[i]);
-        ans.add(0,1);
+        while(i!=parent[i]){
+            ans.add(i);
+            i = parent[i];
+        }
+        ans.add(1);
+        Collections.reverse(ans);
         return ans;
         
     }
