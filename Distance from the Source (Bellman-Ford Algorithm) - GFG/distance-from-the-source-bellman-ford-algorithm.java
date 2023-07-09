@@ -60,7 +60,7 @@ class Solution {
                int u = j.get(0);
                int v = j.get(1);
                int wt = j.get(2);
-               if(dis[u]!= (int)1e8 && dis[v]>dis[u]+wt){
+               if( dis[v]>dis[u]+wt){
                     dis[v]=dis[u]+wt;
                }
            }
@@ -69,7 +69,7 @@ class Solution {
             int a = edges.get(j).get(0);
             int b = edges.get(j).get(1);
             int wt = edges.get(j).get(2);
-            if(dis[a]!= (int)1e8 && dis[b] > dis[a]+wt){
+            if(dis[b] > dis[a]+wt){
                     return new int[]{-1};
                 }
            }
