@@ -37,8 +37,15 @@ class Solution
     public int FindMaxSum(int arr[], int n)
     {
         int dp[] = new int[n+1];
-        Arrays.fill(dp,-1);
-        return rec(arr, n, dp);
+        for(int i =1;i<=n;i++){
+             int one = arr[i-1]+(i>1?dp[i-2]: 0);
+             int two = Integer.MIN_VALUE;
+            if(i>1){
+                two = arr[i-2]+(i>2 ?dp[i-3]: 0);
+            }
+            dp[i] = Math.max(one, two);
+        }
+        return dp[n];
     }
     public int rec(int arr[], int n, int dp[]){
         if(n<=0)return 0;
