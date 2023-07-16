@@ -41,11 +41,24 @@ class Solution{
         return subsetSumToK(n, sum, arr);
     }
      public static boolean subsetSumToK(int n, int k, int arr[]){
-        int dp[][] = new int[n][k+1];
-        for(int i=0;i<n;i++){
-            Arrays.fill(dp[i], -1);
-        }
-        return rec(n-1, k, arr, dp)!=0;
+        boolean dp[][] = new boolean[n][k+1];
+         for(int i=0;i<n;i++){
+             dp[i][0] = true;
+         }
+         if(arr[0]<= k){
+             dp[0][arr[0]] = true;
+         }
+         for(int i=1;i<n;i++){
+             for(int j=1;j<=k;j++){
+                 boolean pick = false;
+                 if(j-arr[i]>=0){
+                     pick = dp[i-1][j-arr[i]];
+                 }
+                 boolean notPick = dp[i-1][j];
+                 dp[i][j] = pick | notPick;
+             }
+         }
+         return dp[n-1][k];
        }
         public static int rec(int n, int k, int arr[], int dp[][]){
         if(n<0 || k<=0 ){
