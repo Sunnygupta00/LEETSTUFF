@@ -65,6 +65,7 @@ class Solution
         int i = 0;
         int j = 0;
         int k = start;
+        
         while(i<n && j<m){
             if(left[i]<=right[j]){
                 arr[k++] = left[i++];
