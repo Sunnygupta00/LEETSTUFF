@@ -38,39 +38,37 @@ class Solution
     //Function to count inversions in the array.
     static long inversionCount(long arr[], long N)
     {
-        return mergeSort(arr, 0, (int)N-1);
+        // Your Code Here
+        return mergeSort(arr,0,  (int)N-1);
     }
     static long mergeSort(long arr[], int start, int end){
-        long inv = 0;
-        if(start<end){
+        long count = 0;
+        if(start< end){
             int mid = start+(end-start)/2;
-            inv += mergeSort(arr, start, mid);
-            inv += mergeSort(arr, mid+1, end);
-            inv += merge(arr, start, mid, end);
+            count+= mergeSort(arr, start, mid);
+            count+= mergeSort(arr, mid+1, end);
+            count+= merge(arr, start, mid, end);
         }
-        return inv;
+        return count;
     }
     static long merge(long arr[], int start, int mid, int end){
-        long inversion = 0;
         int n = mid-start+1;
         int m = end-mid-1+1;
+        long count = 0;
         long left[] = new long[n];
         long right[] = new long[m];
         for(int i=0;i<n;i++){
             left[i] = arr[start+i];
         }
-        for(int j =0;j<m;j++){
-            right[j] = arr[mid+1+j];
+        for(int i = 0;i<m; i++){
+            right[i] = arr[i+mid+1];
         }
-        int i = 0;
-        int j = 0;
-        int k = start;
-        
+        int i = 0, j = 0, k = start;
         while(i<n && j<m){
             if(left[i]<=right[j]){
                 arr[k++] = left[i++];
             }else{
-                inversion += n-i;
+                count+= n-i;
                 arr[k++] = right[j++];
             }
         }
@@ -80,6 +78,7 @@ class Solution
         while(j<m){
             arr[k++] = right[j++];
         }
-        return inversion;
+        return count;
     }
+    
 }
